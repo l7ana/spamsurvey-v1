@@ -2,12 +2,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
 // If you need Realtime Database:
-import { getDatabase } from 'firebase/database';
+import { getDatabase, ref, set } from 'firebase/database';
 import { getAnalytics, logEvent } from 'firebase/analytics';
 // ... and so on for other Firebase products you plan to use
-  // import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-  // import { getDatabase } from "firebase/database";
-  // import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -27,10 +24,24 @@ import { getAnalytics, logEvent } from 'firebase/analytics';
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+//Analytics
 const analytics = getAnalytics(app);
 logEvent(analytics, 'notification_received');
 
-const database = getDatabase(app);
+//Firebase walkthrough
+function writeUserData(userID, name, email, imageUrl) {
+  const db = getDatabase(app);
+  const reference = ref(db, 'users/' + userID);
+
+  set(reference, {
+    username: name,
+    email: email,
+    profile_picture: imageUrl
+  });
+}
+
+writeUserData("nameId", "name", "liana@saedesigngroup.com", "myimageurl");
+
 
 // Reference porportions vote collections
 var votesRef = firebase.database().ref('votes');
@@ -51,7 +62,6 @@ function submitForm(e) {
 
   //Save vote
   saveVote(option1, option2, option3, option4, option5);
-
 
 }
 
