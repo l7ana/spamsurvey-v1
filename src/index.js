@@ -3,7 +3,7 @@
 import { initializeApp } from 'firebase/app';
 // If you need Realtime Database:
 import { getDatabase } from 'firebase/database';
-import { getAnalytics } from 'firebase/analytics';
+import { getAnalytics, logEvent } from 'firebase/analytics';
 // ... and so on for other Firebase products you plan to use
   // import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
   // import { getDatabase } from "firebase/database";
@@ -25,8 +25,12 @@ import { getAnalytics } from 'firebase/analytics';
   };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-// const analytics = getAnalytics(firebase);
+const app = initializeApp(firebaseConfig);
+
+const analytics = getAnalytics(app);
+logEvent(analytics, 'notification_received');
+
+const database = getDatabase(app);
 
 // Reference porportions vote collections
 var votesRef = firebase.database().ref('votes');
