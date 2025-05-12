@@ -13,12 +13,12 @@ import { getAnalytics, logEvent } from 'firebase/analytics';
   const firebaseConfig = {
     apiKey: "AIzaSyB96s5Enyn4m-i5izyS6gM8yhUeRW0KJqU",
     authDomain: "sdg-spam-1.firebaseapp.com",
+    databaseURL: "https://sdg-spam-1-default-rtdb.firebaseio.com",
     projectId: "sdg-spam-1",
     storageBucket: "sdg-spam-1.firebasestorage.app",
     messagingSenderId: "439688423237",
     appId: "1:439688423237:web:2d8a1287c744e56c0dc02c",
-    measurementId: "G-4K5S5TJZB3",
-    databaseURL:"https://sdg-spam-1-default-rtdb.firebaseio.com/",
+    measurementId: "G-4K5S5TJZB3"
   };
 
 // Initialize Firebase
