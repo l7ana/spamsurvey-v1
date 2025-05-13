@@ -2,7 +2,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
 // If you need Realtime Database:
-import { getDatabase, ref, set } from 'firebase/database';
+import { getDatabase, ref, set, onValue } from 'firebase/database';
 import { getAnalytics, logEvent } from 'firebase/analytics';
 // ... and so on for other Firebase products you plan to use
 // TODO: Add SDKs for Firebase products that you want to use
@@ -44,8 +44,11 @@ function writeUserData(userID, name, email, imageUrl) {
 writeUserData("nameId", "name", "liana@saedesigngroup.com", "myimageurl");
 
 // Reference porportions vote collections
-// var votesRef = db.ref("votes");
 var votesRef = ref(db, 'votes');
+onValue(votesRef, (snapshot) => {
+  const data = snapshot.val();
+  updateVotes(postElement, data);
+});
 
 //Listen to form submit
 const radios = document.getElementsByName("porportions");
@@ -63,6 +66,7 @@ function submitForm(e) {
         vote: radios[i].value
       };
       votesRef.push(data);
+      set(votesRef, data);
       console.log(data)
 
       // only one radio can be logically checked, don't check the rest
