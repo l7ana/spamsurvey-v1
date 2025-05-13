@@ -17,15 +17,39 @@
 }
 
 form {
+  /* display: table; */
+  border: 1px solid grey;
+  /* flex-flow: row wrap; */
+}
+
+.question {
   display: flex;
-  flex-flow: row wrap;
+  margin: 100px;
+}
+
+p {
+  margin: 0 0 0 100px;
 }
 
 label {
-  display: flex;
+  /* display: flex; */
   text-align: center;
   width: 200px;
-  height: 200px;
-  flex-flow: column reverse;
+  /* height: 200px; */
+  /* flex-flow: column reverse; */
   margin: auto;
+}
+
+label span {
+  width: 100%;
+}
+
+label img {
+  width: 200px;
+  height: 200px;
+}
+
+button {
+  margin: 0 auto;
+  text-align: center;
 }

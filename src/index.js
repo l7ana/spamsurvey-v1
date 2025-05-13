@@ -2,7 +2,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
 // If you need Realtime Database:
-import { getDatabase, ref, set, onValue } from 'firebase/database';
+import { getDatabase, ref, set, onValue, push } from 'firebase/database';
 import { getAnalytics, logEvent } from 'firebase/analytics';
 // ... and so on for other Firebase products you plan to use
 // TODO: Add SDKs for Firebase products that you want to use
@@ -44,36 +44,75 @@ function writeUserData(userID, name, email, imageUrl) {
 writeUserData("nameId", "name", "liana@saedesigngroup.com", "myimageurl");
 
 // Reference porportions vote collections
-var votesRef = ref(db, 'votes');
-onValue(votesRef, (snapshot) => {
-  const data = snapshot.val();
-  updateVotes(postElement, data);
-});
+const votesRef = ref(db, 'votes');
 
 //Listen to form submit
-const radios = document.getElementsByName("porportions");
 document.getElementById('porportionsForm').addEventListener('submit', submitForm);
 
-//Submit Form
-function submitForm(e) {
-  e.preventDefault();
-  console.log('submit')
-
-  for (var i = 0; i < radios.length; i++){
-    if (radios[i].checked){
-      // do whatever you want with the checked radio
-      var data = {
-        vote: radios[i].value
-      };
-      votesRef.push(data);
-      set(votesRef, data);
-      console.log(data)
-
-      // only one radio can be logically checked, don't check the rest
-      break;
+// Helper function to get selected radio value from a group
+function getSelectedRadioValue(radioGroup) {
+  for (let i = 0; i < radioGroup.length; i++) {
+    if (radioGroup[i].checked) {
+      return radioGroup[i].value;
     }
   }
+  return null; // Return null if no radio is selected
 }
+
+//Submit Form
+function submitForm(e, data) {
+  e.preventDefault();
+  console.log('submit');
+
+  const porportions = document.getElementsByName("porportions");
+  const thickness = document.getElementsByName("thickness");
+  
+  // Get selected values
+  const proportionsValue = getSelectedRadioValue(porportions);
+  const thicknessValue = getSelectedRadioValue(thickness);
+
+  saveAnswers(proportionsValue, thicknessValue)
+}
+
+function saveAnswers(proportionsValue, thicknessValue) {
+    // Only proceed if at least one option is selected
+  if (proportionsValue || thicknessValue) {
+    // Create data object
+    const data = {
+      vote: proportionsValue || "",
+      champion: thicknessValue || "",
+      timestamp: new Date().toISOString()
+    };
+    
+    // Push data to Firebase
+    const newVoteRef = push(votesRef);
+    set(newVoteRef, data)
+      .then(() => {
+        console.log("Vote submitted successfully:", data);
+        // Optional: Reset the form
+        document.getElementById('porportionsForm').reset();
+      })
+      .catch((error) => {
+        console.error("Error submitting vote:", error);
+      });
+  } else {
+    console.log("Please select at least one option");
+    // You could add some UI feedback here
+  }
+}
+
+// If you want to listen for votes and update the UI
+function setupVoteListener() {
+  onValue(votesRef, (snapshot) => {
+    const votesData = snapshot.val();
+    console.log("Current votes:", votesData);
+    // You can process the data here and update UI elements
+    // updateVotesDisplay(votesData);
+  });
+}
+
+// Uncomment to enable the live listener
+// setupVoteListener();
 
 
 // function submitForm(e) {
@@ -92,7 +131,7 @@ function submitForm(e) {
 
 // }
 
-// Function to get form values
+// // Function to get form values
 // function getInputVal(id){
 //   return document.getElementById(id).value;
 // }
