@@ -23,6 +23,7 @@ import { getAnalytics, logEvent } from 'firebase/analytics';
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
 //Analytics
 const analytics = getAnalytics(app);
@@ -42,42 +43,64 @@ function writeUserData(userID, name, email, imageUrl) {
 
 writeUserData("nameId", "name", "liana@saedesigngroup.com", "myimageurl");
 
-
 // Reference porportions vote collections
-var votesRef = firebase.database().ref('votes');
+// var votesRef = db.ref("votes");
+var votesRef = ref(db, 'votes');
 
 //Listen to form submit
+const radios = document.getElementsByName("porportions");
 document.getElementById('porportionsForm').addEventListener('submit', submitForm);
 
 //Submit Form
 function submitForm(e) {
   e.preventDefault();
+  console.log('submit')
 
-  //Get values
-  var option1 = getInputVal('1');
-  var option2 = getInputVal('2');
-  var option3 = getInputVal('3');
-  var option4 = getInputVal('4');
-  var option5 = getInputVal('5');
+  for (var i = 0; i < radios.length; i++){
+    if (radios[i].checked){
+      // do whatever you want with the checked radio
+      var data = {
+        vote: radios[i].value
+      };
+      votesRef.push(data);
+      console.log(data)
 
-  //Save vote
-  saveVote(option1, option2, option3, option4, option5);
-
+      // only one radio can be logically checked, don't check the rest
+      break;
+    }
+  }
 }
+
+
+// function submitForm(e) {
+//   e.preventDefault();
+//   console.log('submit')
+
+//   //Get values
+//   var option1 = getInputVal('1');
+//   var option2 = getInputVal('2');
+//   var option3 = getInputVal('3');
+//   var option4 = getInputVal('4');
+//   var option5 = getInputVal('5');
+
+//   //Save vote
+//   saveVote(option1, option2, option3, option4, option5);
+
+// }
 
 // Function to get form values
-function getInputVal(id){
-  return document.getElementById(id).value;
-}
+// function getInputVal(id){
+//   return document.getElementById(id).value;
+// }
 
-//Save votes to firebase
-function saveVote(option1, option2, option3, option4, option5){
-  var newVoteRef = votesRef.push();
-  newVoteRef.set({
-    option1: option1, 
-    option2: option2,
-    option3: option3,
-    option4: option4,
-    option5: option5
-  });
-}
+// //Save votes to firebase
+// function saveVote(option1, option2, option3, option4, option5){
+//   var newVoteRef = votesRef.push();
+//   newVoteRef.set({
+//     option1: option1, 
+//     option2: option2,
+//     option3: option3,
+//     option4: option4,
+//     option5: option5
+//   });
+// }
