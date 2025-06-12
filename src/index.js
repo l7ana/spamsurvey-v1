@@ -71,7 +71,7 @@ function submitForm(e, data) {
   const proportionsValue = getSelectedRadioValue(porportions);
   const thicknessValue = getSelectedRadioValue(thickness);
 
-  saveAnswers(proportionsValue, thicknessValue)
+  saveAnswers(proportionsValue, thicknessValue);
 }
 
 function saveAnswers(proportionsValue, thicknessValue) {
@@ -91,6 +91,9 @@ function saveAnswers(proportionsValue, thicknessValue) {
         console.log("Vote submitted successfully:", data);
         // Optional: Reset the form
         document.getElementById('porportionsForm').reset();
+        // Uncomment to enable the live listener
+        setupVoteListener(votesRef);
+
       })
       .catch((error) => {
         console.error("Error submitting vote:", error);
@@ -102,48 +105,17 @@ function saveAnswers(proportionsValue, thicknessValue) {
 }
 
 // If you want to listen for votes and update the UI
-function setupVoteListener() {
+function setupVoteListener(votesRef) {
+  console.log('hello?')
   onValue(votesRef, (snapshot) => {
     const votesData = snapshot.val();
     console.log("Current votes:", votesData);
     // You can process the data here and update UI elements
-    // updateVotesDisplay(votesData);
+    updateVotesDisplay(votesData);
   });
 }
 
-// Uncomment to enable the live listener
-// setupVoteListener();
-
-
-// function submitForm(e) {
-//   e.preventDefault();
-//   console.log('submit')
-
-//   //Get values
-//   var option1 = getInputVal('1');
-//   var option2 = getInputVal('2');
-//   var option3 = getInputVal('3');
-//   var option4 = getInputVal('4');
-//   var option5 = getInputVal('5');
-
-//   //Save vote
-//   saveVote(option1, option2, option3, option4, option5);
-
-// }
-
-// // Function to get form values
-// function getInputVal(id){
-//   return document.getElementById(id).value;
-// }
-
-// //Save votes to firebase
-// function saveVote(option1, option2, option3, option4, option5){
-//   var newVoteRef = votesRef.push();
-//   newVoteRef.set({
-//     option1: option1, 
-//     option2: option2,
-//     option3: option3,
-//     option4: option4,
-//     option5: option5
-//   });
-// }
+function updateVotesDisplay(data) {
+  const answerArea = document.getElementById('results');
+  answerArea.innerHTML=data;
+}

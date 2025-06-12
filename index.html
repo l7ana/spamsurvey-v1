@@ -15,7 +15,7 @@
     <div class="question">
         <label for="1">
           <span>1 - I'm here for the SPAM</span>
-          <input type="radio" id="1" name="porportions" value="1">
+          <input type="radio" id="1" name="porportions" value="1" required>
           <img src="https://picsum.photos/100/100" alt="">
         </label>
 
@@ -48,7 +48,7 @@
     <div class="question">
       <label for="thickness1">
         <span>A sliver</span>
-        <input type="radio" id="thickness1" name="thickness" value="thickness1">
+        <input type="radio" id="thickness1" name="thickness" value="thickness1" required>
         <img src="https://picsum.photos/100/100" alt="">
       </label>
 
@@ -81,6 +81,8 @@
     <button type="submit">Submit</button>
 
   </form>
+
+  <div id="results"></div>
 
 
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
