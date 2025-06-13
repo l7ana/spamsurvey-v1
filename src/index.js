@@ -60,8 +60,8 @@ function submitForm(e, data) {
   e.preventDefault();
   console.log('submit');
 
-  const porportions = document.getElementsByName("porportions");
-  const thickness = document.getElementsByName("thickness");
+  const porportions = document.getElementsByName("rice-porportions");
+  const thickness = document.getElementsByName("spam-thickness");
   
   // Get selected values
   const proportionsValue = getSelectedRadioValue(porportions);
