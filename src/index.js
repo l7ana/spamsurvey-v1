@@ -1,11 +1,6 @@
-
-// Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
-// If you need Realtime Database:
 import { getDatabase, ref, set, onValue, push } from 'firebase/database';
 import { getAnalytics, logEvent } from 'firebase/analytics';
-// ... and so on for other Firebase products you plan to use
-// TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
@@ -30,18 +25,18 @@ const analytics = getAnalytics(app);
 logEvent(analytics, 'notification_received');
 
 //Firebase walkthrough
-function writeUserData(userID, name, email, imageUrl) {
-  const db = getDatabase(app);
-  const reference = ref(db, 'users/' + userID);
+// function writeUserData(userID, name, email, imageUrl) {
+//   const db = getDatabase(app);
+//   const reference = ref(db, 'users/' + userID);
 
-  set(reference, {
-    username: name,
-    email: email,
-    profile_picture: imageUrl
-  });
-}
+//   set(reference, {
+//     username: name,
+//     email: email,
+//     profile_picture: imageUrl
+//   });
+// }
 
-writeUserData("nameId", "name", "liana@saedesigngroup.com", "myimageurl");
+// writeUserData("nameId", "name", "liana@saedesigngroup.com", "myimageurl");
 
 // Reference porportions vote collections
 const votesRef = ref(db, 'votes');
@@ -89,10 +84,11 @@ function saveAnswers(proportionsValue, thicknessValue) {
     set(newVoteRef, data)
       .then(() => {
         console.log("Vote submitted successfully:", data);
+        readAllVotes();
         // Optional: Reset the form
         document.getElementById('porportionsForm').reset();
         // Uncomment to enable the live listener
-        setupVoteListener(votesRef);
+        // setupVoteListener(votesRef);
 
       })
       .catch((error) => {
@@ -105,17 +101,19 @@ function saveAnswers(proportionsValue, thicknessValue) {
 }
 
 // If you want to listen for votes and update the UI
-function setupVoteListener(votesRef) {
-  console.log('hello?')
+function readAllVotes() {
   onValue(votesRef, (snapshot) => {
     const votesData = snapshot.val();
-    console.log("Current votes:", votesData);
-    // You can process the data here and update UI elements
-    updateVotesDisplay(votesData);
-  });
-}
+    console.log("All votes in database:", votesData);
+      // You can process the data here and update UI elements
+      // updateVotesDisplay(votesData);
 
-function updateVotesDisplay(data) {
-  const answerArea = document.getElementById('results');
-  answerArea.innerHTML=data;
+    if (votesData) {
+      Object.keys(votesData).forEach(key => {
+        console.log(`Vote ${key}:`, votesData[key]);
+      });
+    }
+  }, {
+    onlyOnce: true
+  })
 }
