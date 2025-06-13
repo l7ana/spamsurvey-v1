@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, set, onValue, push } from 'firebase/database';
 import { getAnalytics, logEvent } from 'firebase/analytics';
+import '../styles.css';
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
