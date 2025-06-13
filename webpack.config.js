@@ -1,4 +1,5 @@
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
@@ -28,6 +29,7 @@ module.exports = {
       template: './index.html', // Path to your HTML template
       filename: 'index.html', // Output filename
     }),
+    new Dotenv()
   ],
   // The location of the build folder described above
    output: {
