@@ -39,11 +39,11 @@ logEvent(analytics, 'notification_received');
 
 // writeUserData("nameId", "name", "liana@saedesigngroup.com", "myimageurl");
 
-// Reference porportions vote collections
+// Reference proportions vote collections
 const votesRef = ref(db, 'votes');
 
 //Listen to form submit
-document.getElementById('porportionsForm').addEventListener('submit', submitForm);
+document.getElementById('proportionsForm').addEventListener('submit', submitForm);
 
 // Helper function to get selected radio value from a group
 function getSelectedRadioValue(radioGroup) {
@@ -60,11 +60,11 @@ function submitForm(e, data) {
   e.preventDefault();
   console.log('submit');
 
-  const porportions = document.getElementsByName("rice-porportions");
+  const proportions = document.getElementsByName("rice-proportions");
   const thickness = document.getElementsByName("spam-thickness");
   
   // Get selected values
-  const proportionsValue = getSelectedRadioValue(porportions);
+  const proportionsValue = getSelectedRadioValue(proportions);
   const thicknessValue = getSelectedRadioValue(thickness);
 
   saveAnswers(proportionsValue, thicknessValue);
@@ -87,7 +87,7 @@ function saveAnswers(proportionsValue, thicknessValue) {
         console.log("Vote submitted successfully:", data);
         readAllVotes();
         // Optional: Reset the form
-        document.getElementById('porportionsForm').reset();
+        document.getElementById('proportionsForm').reset();
         // Uncomment to enable the live listener
         // setupVoteListener(votesRef);
 
