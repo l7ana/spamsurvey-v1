@@ -36,7 +36,7 @@
 	--width: 80em;
 }
 
-.question {
+.question, .answer {
 	--gap: 1em;
   display: flex;
   flex-flow: row none;
