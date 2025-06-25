@@ -88,8 +88,6 @@ function saveAnswers(proportionsValue, thicknessValue) {
         readAllVotes();
         // Optional: Reset the form
         document.getElementById('proportionsForm').reset();
-        // Uncomment to enable the live listener
-        // setupVoteListener(votesRef);
 
       })
       .catch((error) => {
@@ -97,9 +95,10 @@ function saveAnswers(proportionsValue, thicknessValue) {
       });
   } else {
     console.log("Please select at least one option");
-    // You could add some UI feedback here
   }
 }
+
+const resultsContainer = document.getElementById('results');
 
 // If you want to listen for votes and update the UI
 function readAllVotes() {
@@ -108,6 +107,9 @@ function readAllVotes() {
     console.log("All votes in database:", votesData);
       // You can process the data here and update UI elements
       // updateVotesDisplay(votesData);
+      resultsContainer.hidden = false;
+      resultsContainer.style.visibility="visible";
+      resultsContainer.style.display="block";
 
     if (votesData) {
       Object.keys(votesData).forEach(key => {

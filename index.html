@@ -76,14 +76,82 @@
       </label>
     </div>
     
-    
     <button type="submit">Submit</button>
 
   </form>
 
-  <div id="results"></div>
+  <section id="results" class="section container-xl" style="visibility: hidden; display: none;">
+    <div>
+      <h1>The People Have Spoken</h1>
+      <h2>ideal proportions</h2>
+      <div class="question">
+        <label for="1">
+          <span>1 - I'm here for the SPAM</span>
+          <input type="radio" id="1" name="rice-proportions" value="1" required>
+          <img src="images/spam_rice1_1.png" alt="">
+        </label>
 
+        <label for="2">
+          <span>2 - Less Rice</span>
+          <input type="radio" id="2" name="rice-proportions" value="2">
+          <img src="images/spam_rice2_1.png" alt="">
+        </label>
 
+        <label for="3">
+          <span>3 - Normal</span>
+          <input type="radio" id="3" name="rice-proportions" value="3">
+          <img src="images/spam_rice3_1.png" alt="">
+        </label>
+
+        <label for="4">
+          <span>4 - Thicker Rice</span>
+          <input type="radio" id="4" name="rice-proportions" value="4">
+          <img src="images/spam_rice4_1.png" alt="">
+        </label>
+
+        <label for="5">
+          <span>5 - Ultra Rice</span>
+          <input type="radio" id="5" name="rice-proportions" value="5">
+          <img src="images/spam_rice5_1.png" alt="">
+        </label>
+      </div>
+      <br>
+      <h2>How thick we like em</h2>
+      <div class="question">
+        <label for="thickness1">
+          <span>A sliver</span>
+          <input type="radio" id="thickness1" name="spam-thickness" value="thickness1" required>
+          <img src="images/spam_spam1_1.png" alt="">
+        </label>
+
+        <label for="thickness2">
+          <span>Thinner</span>
+          <input type="radio" id="thickness2" name="spam-thickness" value="thickness2">
+          <img src="images/spam_spam2_1.png" alt="">
+        </label>
+
+        <label for="thickness3">
+          <span>Regular</span>
+          <input type="radio" id="thickness3" name="spam-thickness" value="thickness3">
+          <img src="images/spam_spam3_1.png" alt="">
+        </label>
+
+        <label for="thickness4">
+          <span>Thicker</span>
+          <input type="radio" id="thickness4" name="spam-thickness" value="thickness4">
+          <img src="images/spam_spam4_1.png" alt="">
+        </label>
+
+        <label for="thickness5">
+          <span>Fat 'n juicy</span>
+          <input type="radio" id="thickness5" name="spam-thickness" value="thickness5">
+          <img src="images/spam_spam5_1.png" alt="">
+        </label>
+      </div>
+    </div>
+  </section>
+
+  
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="dist/bundle.js"></script>
 </body>
