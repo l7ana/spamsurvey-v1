@@ -75,8 +75,8 @@ function saveAnswers(proportionsValue, thicknessValue) {
   if (proportionsValue || thicknessValue) {
     // Create data object
     const data = {
-      vote: proportionsValue || "",
-      champion: thicknessValue || "",
+      ricePorportions: proportionsValue || "",
+      spamThickness: thicknessValue || "",
       timestamp: new Date().toISOString()
     };
     
