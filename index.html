@@ -12,66 +12,62 @@
     <h1>proportions</h1>
     <h2>pick ideal proportions</h2>
     <div class="question">
-        <label for="rice1">
-          <span>1 - I'm here for the SPAM</span>
-          <input type="radio" id="rice1" name="rice-proportions" value="rice1" required>
-          <img src="images/spam_rice1_1.png" alt="">
-        </label>
-
-        <label for="rice2">
-          <span>2 - Less Rice</span>
-          <input type="radio" id="rice2" name="rice-proportions" value="rice2">
-          <img src="images/spam_rice2_1.png" alt="">
-        </label>
-
-        <label for="rice3">
-          <span>3 - Normal</span>
-          <input type="radio" id="rice3" name="rice-proportions" value="rice3">
-          <img src="images/spam_rice3_1.png" alt="">
-        </label>
-
-        <label for="rice4">
-          <span>4 - Thicker Rice</span>
-          <input type="radio" id="rice4" name="rice-proportions" value="rice4">
-          <img src="images/spam_rice4_1.png" alt="">
-        </label>
-
-        <label for="rice5">
-          <span>5 - Ultra Rice</span>
-          <input type="radio" id="rice5" name="rice-proportions" value="rice5">
-          <img src="images/spam_rice5_1.png" alt="">
-        </label>
+      <label for="rice1">
+        <span>1 - I'm here for the SPAM</span>
+        <input type="radio" id="rice1" name="rice-proportions" value="rice1" required>
+        <img src="images/spam_rice1_1.png" alt="">
+      </label>
+      <label for="rice2">
+        <span>2 - Less Rice</span>
+        <input type="radio" id="rice2" name="rice-proportions" value="rice2">
+        <img src="images/spam_rice2_1.png" alt="">
+      </label>
+      <label for="rice3">
+        <span>3 - Normal</span>
+        <input type="radio" id="rice3" name="rice-proportions" value="rice3">
+        <img src="images/spam_rice3_1.png" alt="">
+      </label>
+      <label for="rice4">
+        <span>4 - Thicker Rice</span>
+        <input type="radio" id="rice4" name="rice-proportions" value="rice4">
+        <img src="images/spam_rice4_1.png" alt="">
+      </label>
+      <label for="rice5">
+        <span>5 - Ultra Rice</span>
+        <input type="radio" id="rice5" name="rice-proportions" value="rice5">
+        <img src="images/spam_rice5_1.png" alt="">
+      </label>
     </div>
     <br>
     <h2>pick your spam thickness</h2>
     <div class="question">
       <label for="thickness1">
         <span>A sliver</span>
-        <input type="radio" id="thickness1" name="spam-thickness" value="thickness1" required>
+        <input type="radio" id="thickness1" name="spam-thickness" value="spamThickness-1" required>
         <img src="images/spam_spam1_1.png" alt="">
       </label>
 
       <label for="thickness2">
         <span>Thinner</span>
-        <input type="radio" id="thickness2" name="spam-thickness" value="thickness2">
+        <input type="radio" id="thickness2" name="spam-thickness" value="spamThickness-2">
         <img src="images/spam_spam2_1.png" alt="">
       </label>
 
       <label for="thickness3">
         <span>Regular</span>
-        <input type="radio" id="thickness3" name="spam-thickness" value="thickness3">
+        <input type="radio" id="thickness3" name="spam-thickness" value="spamThickness-3">
         <img src="images/spam_spam3_1.png" alt="">
       </label>
 
       <label for="thickness4">
         <span>Thicker</span>
-        <input type="radio" id="thickness4" name="spam-thickness" value="thickness4">
+        <input type="radio" id="thickness4" name="spam-thickness" value="spamThickness-4">
         <img src="images/spam_spam4_1.png" alt="">
       </label>
 
       <label for="thickness5">
         <span>Fat 'n juicy</span>
-        <input type="radio" id="thickness5" name="spam-thickness" value="thickness5">
+        <input type="radio" id="thickness5" name="spam-thickness" value="spamThickness-5">
         <img src="images/spam_spam5_1.png" alt="">
       </label>
     </div>
@@ -81,56 +77,59 @@
   </form>
 
   <section id="results" class="section container-xl" style="visibility: hidden; display: none;">
-    <div>
-      <h1>The People Have Spoken</h1>
-      <h2>ideal proportions</h2>
-      <div class="answer" id="proportions-results">
-        <div id="proportions-result-1">
-          <span>1 - I'm here for the SPAM</span>
-          <img src="images/spam_rice1_1.png" alt="">
-        </div>
-        <div id="proportions-result-2">
-          <span>2 - Less Rice</span>
-          <img src="images/spam_rice2_1.png" alt="">
-        </div>
-        <div id="proportions-result-3">
-          <span>3 - Normal</span>
-          <img src="images/spam_rice3_1.png" alt="">
-        </div>
-        <div id="proportions-result-4">
-          <span>4 - Thicker Rice</span>
-          <img src="images/spam_rice4_1.png" alt="">
-        </div>
-        <div id="proportions-result-5">
-          <span>5 - Ultra Rice</span>
-          <img src="images/spam_rice5_1.png" alt="">
-        </div>
+    <h1>The People Have Spoken</h1>
+    <h2>ideal proportions</h2>
+    <div class="answers_wrapper">
+      <div class="answer" id="ricePorportions-1">
+        <span>1 - I'm here for the SPAM</span>
+        <img src="images/spam_rice1_1.png" alt="">
+        <p data-rice-porportions-results="1"></p>
       </div>
+      <div class="answer" id="ricePorportions-2">
+        <span>2 - Less Rice</span>
+        <img src="images/spam_rice2_1.png" alt="">
+        <p data-rice-porportions-results="2"></p>
+      </div>
+      <div class="answer" id="ricePorportions-3">
+        <span>3 - Normal</span>
+        <img src="images/spam_rice3_1.png" alt="">
+        <p data-rice-porportions-results="3"></p>
+      </div>
+      <div class="answer" id="ricePorportions-4">
+        <span>4 - Thicker Rice</span>
+        <img src="images/spam_rice4_1.png" alt="">
+        <p data-rice-porportions-results="4"></p>
+      </div>
+      <div class="answer" id="ricePorportions-5">
+        <span>5 - Ultra Rice</span>
+        <img src="images/spam_rice5_1.png" alt="">
+        <p data-rice-porportions-results="5"></p>
+      </div>
+    </div>
 
-      <br>
+    <br>
 
-      <h2>How thick we like em</h2>
-      <div class="answer" id="thickness-results">
-        <div id="thickness-result-1">
-          <span>A sliver</span>
-          <img src="images/spam_spam1_1.png" alt="">
-        </div>
-        <div id="thickness-result-2">
-          <span>Thinner</span>
-          <img src="images/spam_spam2_1.png" alt="">
-        </div>
-        <div id="thickness-result-3">
-          <span>Regular</span>
-          <img src="images/spam_spam3_1.png" alt="">
-        </div>
-        <div id="thickness-result-4">
-          <span>Thicker</span>
-          <img src="images/spam_spam4_1.png" alt="">
-        </div>
-        <div id="thickness-result-5">
-          <span>Fat 'n juicy</span>
-          <img src="images/spam_spam5_1.png" alt="">
-        </div>
+    <h2>How thick we like em</h2>
+    <div class="answers_wrapper">
+      <div class="answer" id="spamThickness-1" data-results="spamThickness-1">
+        <span>A sliver</span>
+        <img src="images/spam_spam1_1.png" alt="">
+      </div>
+      <div class="answer" id="spamThickness-2" data-results="spamThickness-2">
+        <span>Thinner</span>
+        <img src="images/spam_spam2_1.png" alt="">
+      </div>
+      <div class="answer" id="spamThickness-3" data-results="spamThickness-3">
+        <span>Regular</span>
+        <img src="images/spam_spam3_1.png" alt="">
+      </div>
+      <div class="answer" id="spamThickness-4" data-results="spamThickness-4">
+        <span>Thicker</span>
+        <img src="images/spam_spam4_1.png" alt="">
+      </div>
+      <div class="answer" id="spamThickness-5" data-results="spamThickness-5">
+        <span>Fat 'n juicy</span>
+        <img src="images/spam_spam5_1.png" alt="">
       </div>
     </div>
   </section>

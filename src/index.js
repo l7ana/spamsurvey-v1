@@ -99,6 +99,16 @@ function saveAnswers(proportionsValue, thicknessValue) {
 }
 
 const resultsContainer = document.getElementById('results');
+const riceResults = document.querySelectorAll('[data-rice-porportions-results]');
+const spamThicknessResults = document.querySelectorAll('[data-results="spamThickness"]');
+
+function updateRicePorportions () {
+  riceResults.forEach(element => {
+    //find the html element and insert result amount
+    const elVal = element.dataset.ricePorportionsResults;
+    element.innerHTML `<p>${elVal}</p>`;
+  });
+}
 
 // If you want to listen for votes and update the UI
 function readAllVotes() {
@@ -111,9 +121,15 @@ function readAllVotes() {
       resultsContainer.style.visibility="visible";
       resultsContainer.style.display="block";
 
+      //way to filter votes data to tally each answer to each question
+
+      updateRicePorportions();
+
     if (votesData) {
       Object.keys(votesData).forEach(key => {
-        console.log(`Vote ${key}:`, votesData[key]);
+        // console.log(`Vote ${key}:`, votesData[key]);
+        console.log(votesData[key].ricePorportions);
+        console.log(votesData[key].spamThickness);
       });
     }
   }, {

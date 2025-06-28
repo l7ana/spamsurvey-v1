@@ -36,10 +36,10 @@
 	--width: 80em;
 }
 
-.question, .answer {
-	--gap: 1em;
+.question, .answers_wrapper {
+	--gap: .75em;
   display: flex;
-  flex-flow: row none;
+  flex-flow: row wrap;
   justify-content: space-between;
 	gap: var(--gap);
 }
@@ -70,22 +70,19 @@ p {
   margin: 1.5em 0 1em;
 }
 
-label {
-  /* display: flex; */
+label, .answer {
   text-align: center;
-  width: 200px;
-  /* height: 200px; */
-  /* flex-flow: column reverse; */
-  margin: auto;
+  width: 180px;
+  margin: auto 0;
 }
 
-label span {
+label span, .answer span {
   width: 100%;
 }
 
-label img {
-  width: 200px;
-  height: 200px;
+label img, .answer img {
+  width: 180px;
+  height: 180px;
 }
 
 button {
