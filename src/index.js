@@ -106,8 +106,12 @@ function updateRicePorportions () {
   riceResults.forEach(element => {
     //find the html element and insert result amount
     const elVal = element.dataset.ricePorportionsResults;
-    element.innerHTML `<p>${elVal}</p>`;
+    element.innerHTML = `<p>${elVal}</p>`;
   });
+}
+
+function updateTotals(resultTotal, sum) {
+    document.querySelector(resultTotal).innerHTML = `<p>Total Votes:${sum}</p>`
 }
 
 // If you want to listen for votes and update the UI
@@ -122,14 +126,39 @@ function readAllVotes() {
       resultsContainer.style.display="block";
 
       //way to filter votes data to tally each answer to each question
-
-      updateRicePorportions();
+      let ricePorportionsVotes1 = 0;
+      let ricePorportionsVotes2 = 0;
+      let ricePorportionsVotes3 = 0;
+      let ricePorportionsVotes4 = 0;
+      let ricePorportionsVotes5 = 0;
 
     if (votesData) {
       Object.keys(votesData).forEach(key => {
-        // console.log(`Vote ${key}:`, votesData[key]);
         console.log(votesData[key].ricePorportions);
         console.log(votesData[key].spamThickness);
+
+
+        if (votesData[key].ricePorportions === 'rice1') {
+          ricePorportionsVotes1++;
+        }
+        if (votesData[key].ricePorportions === 'rice2') {
+          ricePorportionsVotes2++;
+        }
+        if (votesData[key].ricePorportions === 'rice3') {
+          ricePorportionsVotes3++;
+        }
+        if (votesData[key].ricePorportions === 'rice4') {
+          ricePorportionsVotes4++;
+        }
+        if (votesData[key].ricePorportions === 'rice5') {
+          ricePorportionsVotes5++;
+        }
+
+        updateTotals('[data-rice-porportions-results="1"]', ricePorportionsVotes1);
+        updateTotals('[data-rice-porportions-results="2"]', ricePorportionsVotes2);
+        updateTotals('[data-rice-porportions-results="3"]', ricePorportionsVotes3);
+        updateTotals('[data-rice-porportions-results="4"]', ricePorportionsVotes4);
+        updateTotals('[data-rice-porportions-results="5"]', ricePorportionsVotes5);
       });
     }
   }, {
