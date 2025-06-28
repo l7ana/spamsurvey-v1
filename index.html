@@ -72,7 +72,11 @@
       </label>
     </div>
     
-    <button type="submit">Submit</button>
+    <button type="submit"
+      class="g-recaptcha" 
+      data-sitekey="6LezkHArAAAAAAQuBkrCH8ZtFXSOtEoeCmX6Ptr7" 
+      data-callback='onSubmit' 
+      data-action='submit'>Submit</button>
 
   </form>
 
@@ -136,6 +140,12 @@
 
   
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js"></script>
+  <script>
+   function onSubmit(token) {
+     document.getElementById("proportionsForm").submit();
+   }
+  </script>
   <script src="main.bundle.js"></script>
 </body>
 </html>
