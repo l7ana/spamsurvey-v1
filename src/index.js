@@ -42,6 +42,18 @@ logEvent(analytics, 'notification_received');
 // Reference proportions vote collections
 const votesRef = ref(db, 'votes');
 
+//Question config
+const QUESTION_CONFIG = {
+  riceProportions: {
+    values: ['little-bit', 'less', 'normal', 'more', 'choke'],
+    selector: '[data-rice-proportions-results="{index}"]'
+  },
+  spamThickness: {
+    values: ['paper-thin', 'thin', 'average', 'thick', 'fat'],
+    selector: '[data-spam-thickness-results="{index}"]'
+  }
+}
+
 //Listen to form submit
 document.getElementById('proportionsForm').addEventListener('submit', submitForm);
 
@@ -75,7 +87,7 @@ function saveAnswers(proportionsValue, thicknessValue) {
   if (proportionsValue || thicknessValue) {
     // Create data object
     const data = {
-      ricePorportions: proportionsValue || "",
+      riceProportions: proportionsValue || "",
       spamThickness: thicknessValue || "",
       timestamp: new Date().toISOString()
     };
@@ -87,7 +99,7 @@ function saveAnswers(proportionsValue, thicknessValue) {
         console.log("Vote submitted successfully:", data);
         readAllVotes();
         // Optional: Reset the form
-        document.getElementById('proportionsForm').reset();
+        // document.getElementById('proportionsForm').reset();
 
       })
       .catch((error) => {
@@ -98,26 +110,47 @@ function saveAnswers(proportionsValue, thicknessValue) {
   }
 }
 
-const resultsContainer = document.getElementById('results');
-const riceResults = document.querySelectorAll('[data-rice-porportions-results]');
-const spamThicknessResults = document.querySelectorAll('[data-results="spamThickness"]');
+function countVotes(votesData, questionKey, questionConfig) {
+  const counts = {};
 
-function updateRicePorportions () {
-  riceResults.forEach(element => {
-    //find the html element and insert result amount
-    const elVal = element.dataset.ricePorportionsResults;
-    element.innerHTML = `<p>${elVal}</p>`;
+  //Initialize counts for all values
+  questionConfig.values.forEach(value => {
+    counts[value] = 0;
+  });
+
+  //Count votes from data
+  if (votesData) {
+    Object.values(votesData).forEach(vote => {
+      const answer = vote[questionKey];
+      if (answer && counts.hasOwnProperty(answer)) {
+        counts[answer]++;
+      }
+    });
+
+    return counts;
+  }
+}
+
+//Update DOM elements with vote counts
+function updateQuestionResults(questionKey, counts, questionConfig) {
+  questionConfig.values.forEach((value, index) => {
+    const selector = questionConfig.selector.replace('{index}', index + 1);
+    const element = document.querySelector(selector);
+
+    if (element) {
+      element.innerHTML = `<p>Total Votes: ${counts[value]}</p>`;
+    } else {
+      console.warn(`Element not found for selector: ${selector}`);
+    }
   });
 }
 
-function updateTotals(resultTotal, sum) {
-    document.querySelector(resultTotal).innerHTML = `<p>Total Votes:${sum}</p>`
-}
 
 // If you want to listen for votes and update the UI
 function readAllVotes() {
   onValue(votesRef, (snapshot) => {
     const votesData = snapshot.val();
+    const resultsContainer = document.getElementById('results');
     console.log("All votes in database:", votesData);
       // You can process the data here and update UI elements
       // updateVotesDisplay(votesData);
@@ -125,43 +158,56 @@ function readAllVotes() {
       resultsContainer.style.visibility="visible";
       resultsContainer.style.display="block";
 
-      //way to filter votes data to tally each answer to each question
-      let ricePorportionsVotes1 = 0;
-      let ricePorportionsVotes2 = 0;
-      let ricePorportionsVotes3 = 0;
-      let ricePorportionsVotes4 = 0;
-      let ricePorportionsVotes5 = 0;
+      Object.entries(QUESTION_CONFIG).forEach(([questionKey, questionConfig]) => {
+        const counts = countVotes(votesData, questionKey, questionConfig);
+        updateQuestionResults(questionKey, counts, questionConfig);
 
-    if (votesData) {
-      Object.keys(votesData).forEach(key => {
-        console.log(votesData[key].ricePorportions);
-        console.log(votesData[key].spamThickness);
-
-
-        if (votesData[key].ricePorportions === 'rice1') {
-          ricePorportionsVotes1++;
-        }
-        if (votesData[key].ricePorportions === 'rice2') {
-          ricePorportionsVotes2++;
-        }
-        if (votesData[key].ricePorportions === 'rice3') {
-          ricePorportionsVotes3++;
-        }
-        if (votesData[key].ricePorportions === 'rice4') {
-          ricePorportionsVotes4++;
-        }
-        if (votesData[key].ricePorportions === 'rice5') {
-          ricePorportionsVotes5++;
-        }
-
-        updateTotals('[data-rice-porportions-results="1"]', ricePorportionsVotes1);
-        updateTotals('[data-rice-porportions-results="2"]', ricePorportionsVotes2);
-        updateTotals('[data-rice-porportions-results="3"]', ricePorportionsVotes3);
-        updateTotals('[data-rice-porportions-results="4"]', ricePorportionsVotes4);
-        updateTotals('[data-rice-porportions-results="5"]', ricePorportionsVotes5);
+        console.log(`${questionKey} vote counts:`, counts);
       });
-    }
   }, {
     onlyOnce: true
-  })
+  });
 }
+
+// Alternative: Real-time vote counting (more efficient for live updates)
+// function setupRealTimeVoting() {
+//   const voteCounts = {};
+  
+//   // Initialize vote counts
+//   Object.entries(QUESTION_CONFIG).forEach(([questionKey, questionConfig]) => {
+//     voteCounts[questionKey] = {};
+//     questionConfig.values.forEach(value => {
+//       voteCounts[questionKey][value] = 0;
+//     });
+//   });
+  
+//   onValue(votesRef, (snapshot) => {
+//     const votesData = snapshot.val();
+    
+//     // Reset counts
+//     Object.keys(voteCounts).forEach(questionKey => {
+//       Object.keys(voteCounts[questionKey]).forEach(value => {
+//         voteCounts[questionKey][value] = 0;
+//       });
+//     });
+    
+//     // Recalculate counts
+//     if (votesData) {
+//       Object.values(votesData).forEach(vote => {
+//         Object.entries(QUESTION_CONFIG).forEach(([questionKey, questionConfig]) => {
+//           const answer = vote[questionKey];
+//           if (answer && voteCounts[questionKey].hasOwnProperty(answer)) {
+//             voteCounts[questionKey][answer]++;
+//           }
+//         });
+//       });
+//     }
+    
+//     // Update UI
+//     Object.entries(QUESTION_CONFIG).forEach(([questionKey, questionConfig]) => {
+//       updateQuestionResults(questionKey, voteCounts[questionKey], questionConfig);
+//     });
+    
+//     console.log("Real-time vote counts:", voteCounts);
+//   });
+// }
